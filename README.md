@@ -11,6 +11,12 @@ Rust is a general purpose programming language that was created in 2006 by Grayd
 - The site dedicated to the [Rust language](https://rust-lang.org/)
 - The online book [The Rust Programming Language](https://doc.rust-lang.org/stable/book/)
 
+## Seven Languages in Seven Weeks style
+In the style of *Seven Languages in Seven Weeks*, let's breakdown some aspects of Rust (as I try to teach myself the language)
+
+[Day 2](file:///Rust02.md)
+[Day 3](file:///Rust03.md)
+
 ## Installing Rust
 The preferred way to install Rust is `rustup` and an overview of the that can be found on the Rust lang site [here](https://rust-lang.org/tools/install/)
 
@@ -75,7 +81,7 @@ Hello, world!
 
 2) using cargo
 ```shell
-$ cargo run
+$ cargo run -q
 Hello, world!
 ```
 
