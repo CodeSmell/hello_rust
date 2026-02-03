@@ -38,7 +38,7 @@ pub fn do_something_simple(foo: &Foo) {
 pub fn do_something_interesting(foo: &mut Foo) {
     println!("Inside do_something_interesting: {:#?}", foo);
     foo.value += 20;
-    foo.svalue = String::from("Changed with a mutable reference");
+    foo.svalue = String::from("Changed w/ mut ref");
 }
 
 // borrows a mutable reference to Foo instance 

@@ -18,7 +18,8 @@ fn foo_sandbox() {
 
     // borrow an immutable reference to the first Foo in the vector
     // which is returned as an Option<&Foo>
-    let foo2 = foos.get(0).expect("Panic ensues");
+    // if Option is a None the program will panic
+    let foo2 = foos.get(0).unwrap();
     foo2.hello();
 
     // borrow a mutable reference to the first Foo in the vector
@@ -27,13 +28,27 @@ fn foo_sandbox() {
     foo::do_something_interesting(&mut foo3);
     foo3.hello();
 
+    println!("Status check on foos vector: {:#?}", foos);
+
     // this will panic because there is no 11th element
     //let foo4 = foos.get(10).expect("Panic ensues");
-    
+
+    // this will not panic because we provide a default Foo instance
+    let foo5 = foos.get(10).unwrap_or(&Foo::new(0));
+    // but the instance of Foo is dropped so this is a compile error
+    //foo5.hello();
+
+    //  but we could do this so we don't panic
+    // and can access the default Foo instance
+    let default_foo = Foo::new(0);
+    let foo6 = foos.get(10).unwrap_or(&default_foo);
+    foo6.hello();
+
     // move ownership of Foo instance out of the vector
-    let mut foo4 = foos.pop().expect("Panic ensues");
-    foo::do_something_with_input(&mut foo4, String::from("Rust Rocks!"));
-    foo4.hello();
+    if let Some(mut foo7) = foos.pop() {
+        foo::do_something_with_input(&mut foo7, String::from("Rust Rocks!"));
+        foo7.hello();
+    }
 
     println!("Final state of foos vector: {:#?}", foos);
 
