@@ -11,13 +11,16 @@ impl Foo {
         Foo { value: num, svalue: x }
     }
 
-    // borrowing a mutable reference to self
+    // borrowing an immutable reference to self
     pub fn hello(&self) {
         println!("Hello from Foo with value: {} and svalue: {}", self.value, self.svalue);
     }
 }
 
 /// Free Functions
+/// These are similar to static methods in Java
+
+// takes ownership of Foo instance
 pub fn do_something(mut foo: Foo) {
     println!("Inside do_something: {:#?}", foo);
     foo.value += 10;
@@ -25,30 +28,31 @@ pub fn do_something(mut foo: Foo) {
     foo.hello();
 }
 
-pub fn do_something_ref(foo: &Foo) {
-    println!("Inside do_something_ref: {:#?}", foo);
+// borrows an immutable reference to Foo instance
+pub fn do_something_simple(foo: &Foo) {
+    println!("Inside do_something_simple: {:#?}", foo);
     //foo.svalue = String::from("Changed");
 }
 
+// borrows a mutable reference to Foo instance
 pub fn do_something_interesting(foo: &mut Foo) {
     println!("Inside do_something_interesting: {:#?}", foo);
-    foo.value += 10;
-    foo.svalue = String::from("Changed");
-}
-
-pub fn do_something_mut2(foo: &mut Foo) {
-    println!("Inside do_something_mut2: {:#?}", foo);
+    foo.value += 20;
     foo.svalue = String::from("Changed with a mutable reference");
 }
 
-fn do_more_something(foo: &mut Foo, value: String) {
+// borrows a mutable reference to Foo instance 
+// and changes its svalue attribute with the provided value 
+pub fn do_something_with_input(foo: &mut Foo, value: String) {
     foo.svalue = value
 }
 
-pub fn do_something_else(num_as_string: String) {
-    println!("Inside do_something_else: {:#?}", num_as_string);
+// takes ownership of a String
+pub fn do_something_with_string(num_as_string: String) {
+    println!("Inside do_something_with_string: {:#?}", num_as_string);
 }
 
-pub fn do_more_something_else(num: i32) {
-    println!("Inside do_more_something_else: {:#?}", num);
+// receives a copy of the value
+pub fn do_more_something_with_number(num: i32) {
+    println!("Inside do_more_something_with_number: {:#?}", num);
 }

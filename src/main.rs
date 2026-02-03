@@ -1,5 +1,5 @@
 mod foo;
-use crate::foo::Foo;
+use crate::foo::{Foo, do_something};
 
 fn foo_sandbox() {
     // a mutable vector to hold Foo instances
@@ -8,7 +8,7 @@ fn foo_sandbox() {
     // an immutable binding of a Foo instance
     let foo = Foo::new(42);
     foo.hello();
-
+    
     // move ownership of Foo instance to the vector
     foos.push(foo);
     println!("Initial state of foos vector: {:#?}", foos);
@@ -31,7 +31,8 @@ fn foo_sandbox() {
     //let foo4 = foos.get(10).expect("Panic ensues");
     
     // move ownership of Foo instance out of the vector
-    let foo4 = foos.pop().expect("Panic ensues");
+    let mut foo4 = foos.pop().expect("Panic ensues");
+    foo::do_something_with_input(&mut foo4, String::from("Rust Rocks!"));
     foo4.hello();
 
     println!("Final state of foos vector: {:#?}", foos);
