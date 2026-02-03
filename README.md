@@ -10,6 +10,7 @@ Rust is a general purpose programming language that was created in 2006 by Grayd
 **Good Resources**
 - The site dedicated to the [Rust language](https://rust-lang.org/)
 - The online book [The Rust Programming Language](https://doc.rust-lang.org/stable/book/)
+- Brown University has an [interactive version of the book](https://rust-book.cs.brown.edu/)
 
 ## Seven Languages in Seven Weeks style
 In the style of *Seven Languages in Seven Weeks*, let's breakdown some aspects of Rust (as I try to teach myself the language)

@@ -1,35 +1,43 @@
-fn do_something(foo: Foo) {
-    println!("Inside do_something: {:#?}", foo);
-}
+mod foo;
+use crate::foo::Foo;
 
-fn do_something_ref(foo: &Foo) {
-    println!("Inside do_something_ref: {:#?}", foo);
-    //foo.svalue = "Changed"; 
-}
+fn foo_sandbox() {
+    // a mutable vector to hold Foo instances
+    let mut foos = vec![];
 
-fn do_something_else(numAsString: String) {
-    println!("Inside do_something_else: {:#?}", numAsString);
-}
+    // an immutable binding of a Foo instance
+    let foo = Foo::new(42);
+    foo.hello();
 
-#[derive(Debug)]
-struct Foo {
-    value: i32,
-    svalue: String,
-}
-impl Foo {
+    // move ownership of Foo instance to the vector
+    foos.push(foo);
+    println!("Initial state of foos vector: {:#?}", foos);
 
-    fn new(num: i32) -> Self {
-        let x = format!("Holder of {}", num);
-        Foo { value: num, svalue: x }
-    }
+    // this will not compile because foo has moved
+    //foo.hello();
 
-    fn hello(&self) {
-        println!("Hello from Foo with value: {}", self.value);
-    }
+    // borrow an immutable reference to the first Foo in the vector
+    // which is returned as an Option<&Foo>
+    let foo2 = foos.get(0).expect("Panic ensues");
+    foo2.hello();
+
+    // borrow a mutable reference to the first Foo in the vector
+    // which is returned as an Option<&mut Foo>
+    let mut foo3 = foos.get_mut(0).expect("Panic ensues");
+    foo::do_something_interesting(&mut foo3);
+    foo3.hello();
+
+    // this will panic because there is no 11th element
+    //let foo4 = foos.get(10).expect("Panic ensues");
+    
+    // move ownership of Foo instance out of the vector
+    let foo4 = foos.pop().expect("Panic ensues");
+    foo4.hello();
+
+    println!("Final state of foos vector: {:#?}", foos);
+
 }
 
 fn main() {
-    let foo = Foo::new(42);
-    do_something_ref(&foo);
-    foo.hello();
+    foo_sandbox();
 }
