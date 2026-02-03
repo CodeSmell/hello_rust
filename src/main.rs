@@ -1,5 +1,5 @@
 mod foo;
-use crate::foo::{Foo, do_something};
+use crate::foo::{Foo};
 
 fn foo_sandbox() {
     // a mutable vector to hold Foo instances
@@ -40,7 +40,7 @@ fn foo_sandbox() {
 
     //  but we could do this so we don't panic
     // and can access the default Foo instance
-    let default_foo = Foo::new(0);
+    let default_foo = Foo::new(0).with_svalue(String::from("None"));
     let foo6 = foos.get(10).unwrap_or(&default_foo);
     foo6.hello();
 

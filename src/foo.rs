@@ -11,6 +11,14 @@ impl Foo {
         Foo { value: num, svalue: x }
     }
 
+    // builder pattern 
+    // method that takes ownership of self 
+    // and returns an updated instance
+    pub fn with_svalue(mut self, svalue: String) -> Self {
+        self.svalue = svalue;
+        self
+    }
+
     // borrowing an immutable reference to self
     pub fn hello(&self) {
         println!("Hello from Foo with value: {} and svalue: {}", self.value, self.svalue);
